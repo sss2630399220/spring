@@ -13,7 +13,7 @@ public class Test {
 		UserService bean = ac.getBean("userservice",UserService.class);
 		bean.addUser();
 		bean.delUser();
-//只是做一个测试的修改
+
 	}
 
 }
