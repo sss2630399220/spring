@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/aop 
+	http://www.springframework.org/schema/aop/spring-aop.xsd 
+	http://www.springframework.org/schema/beans 
+	http://www.springframework.org/schema/beans/spring-beans.xsd 
+	http://www.springframework.org/schema/context 
+	http://www.springframework.org/schema/context/spring-context.xsd ">
+
+	<!-- 目标对象 -->
+	<bean id="userservice" class="service.impl.UserServiceImpl"></bean>
+	<!-- 通知 -->
+	<bean id="myaspect" class="aspect.MyAspect"></bean>
+	<!-- 配置切面 -->
+	<aop:config>
+		<!-- 切点 -->
+		<!-- expression="execution(返回值类型     包名+类名+方法名(参数))" 
+				*通配符   execution（*  service.impl.UserServieImpl.*User(..)）
+		-->
+		<aop:pointcut expression="execution(*  service.impl.UserServiceImpl.*User(..))" id="pc"/>
+		<!-- 切面 -->
+		<aop:aspect ref="myaspect">
+			<!-- 前置增强 -->
+			<aop:before method="before" pointcut-ref="pc"/>
+			<!-- 后置增强 -->
+			<aop:after method="after" pointcut-ref="pc"/>
+		</aop:aspect>
+	</aop:config>
+
+</beans>
